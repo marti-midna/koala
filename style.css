@@ -28,8 +28,10 @@
 
     .card img {
         
-        width: 200px;
+        width: 100%;
         height: auto;
+        border-radius: 10px 10px 10px 10px ;
+
         
     }
     nav ul {
