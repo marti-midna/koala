@@ -1,11 +1,16 @@
-const URL = "https://thecocktaildb.com/api/json/v1/1/search.php?s=d";
+
+
 
 
 const q = (selector) => document.querySelector(selector);
 const qAll = (selector) => document.querySelectorAll(selector);
 
+const menuDrinks = "https://thecocktaildb.com/api/json/v1/1/search.php?s=d";
+const menuFood = "https://edgemony-backend.herokuapp.com/gallery";
+// let URL = "";
 
-const render = (data) => {
+
+const renderDrink = (data) => {
 
     const items = data.drinks.map((item, index) =>
         `
@@ -22,15 +27,63 @@ const render = (data) => {
 };
 
 
+const renderFood = (data = []) => {
 
-const getData = async () => {
-    const response = await fetch(URL);
+    const items = data.map((item, index) =>
+        `
+        <li>
+            <figure id="${index}">
+            <img src="${item.url}" alt="${item.description}" />
+            <figcaption>${item.description}</figcaption>
+            </figure>
+        </li>
+        `
+    );
+    q(".contain_food").innerHTML = items.join("");
+};
+
+
+
+const getDrink = async () => {
+
+    const response = await fetch(menuDrinks);
     const data = await response.json();
     console.log(response, data);
-    render(data)
+
+    renderDrink(data)
 }
 
-q("#menu").addEventListener("click", () => {
-    getData();
-    // location.reload();
-})
+const getFood = async () => {
+
+    const response = await fetch(menuFood);
+    const data = await response.json();
+    console.log(response, data);
+
+    renderFood(data)
+    // renderFood(data)
+}
+
+
+let dom = document.addEventListener("DOMContentLoaded", (stampa) => {
+
+
+    function clickDrinks() {
+        getDrink();
+    }
+
+    function clickFood() {
+        getFood();
+    }
+
+});
+
+
+
+
+
+
+// if (clickDrinks) {
+
+// } else if (clickFood) {
+
+// }
